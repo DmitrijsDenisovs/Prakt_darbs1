@@ -48,6 +48,8 @@
                 else{
                     $_SESSION["name"] = $record["Name"];
                     $_SESSION["email"] = $inputEmail;
+                    setcookie("email", $inputEmail, time() + 3600, "/");
+                    setcookie("name", $record["Name"], time() + 3600, "/");
                 }
             }
 

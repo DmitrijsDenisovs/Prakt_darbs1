@@ -1,6 +1,12 @@
 <?php
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
+        if(isset($_COOKIE["name"])){
+            $_SESSION["name"] = $_COOKIE["name"];
+        }
+        if(isset($_COOKIE["email"])){
+            $_SESSION["email"] = $_COOKIE["email"];
+        }
     }
 ?>   
 <!DOCTYPE html>
