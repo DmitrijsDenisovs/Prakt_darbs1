@@ -20,8 +20,7 @@
         }
         else{  
             $inputEmail = htmlspecialchars(stripslashes(trim($inputEmail)));
-            $inputPass = md5($inputPass);
-
+            
             $sql = "SELECT Name, Password FROM client WHERE Email = '$inputEmail'";
             $result = $conn->query($sql);
 
@@ -32,6 +31,13 @@
                 exit();
             }
             else {
+                if($inputPass == null){
+                $_SESSION["error"] = "Ievadiet paroli";
+                $conn->close();
+                header("Location: loginWindow.php");
+                exit();
+                }
+                $inputPass = md5($inputPass);
                 $record = $result->fetch_assoc();
                 if($record["Password"] != $inputPass){     
                     $conn->close();

@@ -16,6 +16,36 @@
         $username = "root";
         $password = "";
         $dbname = "forumdatabase";
+
+        $inputName = ucfirst(htmlspecialchars(stripslashes(trim($inputName))));
+        $inputEmail = htmlspecialchars(stripslashes(trim($inputEmail)));
+        if($inputPass == null){
+            $_SESSION["error"] = "Ievadiet paroli";
+            $conn->close();
+            header("Location: registerWindow.php");
+            exit();
+        }
+        $inputPass = md5($inputPass);
+        if(!filter_var($inputEmail, FILTER_VALIDATE_EMAIL)){
+            $_SESSION["error"] = "Nepareizi ievadīts epasts";
+            $conn->close();
+            header("Location: registerWindow.php");
+            exit();
+        }
+        if(strlen($inputName) > 50){
+            $_SESSION["error"] = "Vārds ir parāk garš";
+            $conn->close();
+            header("Location: registerWindow.php");
+            exit();
+        }
+        if(strlen($inputEmail) > 60){
+            $_SESSION["error"] = "Epasts ir parāk garš";
+            $conn->close();
+            header("Location: registerWindow.php");
+            exit();
+        }
+
+        
         $conn = new mysqli($servername, $username, $password, $dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -24,27 +54,7 @@
             exit();
         }
         else{  
-            $inputName = ucfirst(htmlspecialchars(stripslashes(trim($inputName))));
-            $inputEmail = htmlspecialchars(stripslashes(trim($inputEmail)));
-            $inputPass = md5($inputPass);
-            if(!filter_var($inputEmail, FILTER_VALIDATE_EMAIL)){
-                $_SESSION["error"] = "Nepareizi ievadīts epasts";
-                $conn->close();
-                header("Location: registerWindow.php");
-                exit();
-            }
-            if(strlen($inputName) > 50){
-                $_SESSION["error"] = "Vārds ir parāk garš";
-                $conn->close();
-                header("Location: registerWindow.php");
-                exit();
-            }
-            if(strlen($inputEmail) > 60){
-                $_SESSION["error"] = "Epasts ir parāk garš";
-                $conn->close();
-                header("Location: registerWindow.php");
-                exit();
-            }
+            
             $sql = "SELECT Email FROM client WHERE Email = '$inputEmail'";
             $duplicate = $conn->query($sql);
             if($duplicate->num_rows > 0){

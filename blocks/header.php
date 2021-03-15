@@ -3,7 +3,7 @@
     <div class = "col-8 heading-div">
         <h3>Bazēts forums</h3>
     </div>
-      <div class="col oolbar d-grid my-2 my-md-0 ">
+      <div class="col toolbar d-grid my-2 my-md-0 ">
         <div class = "row">
           <div class="my-md-2 col-sm">
               <a class="w-100 btn btn-outline-primary" href="index.php">Sākumlapa</a>

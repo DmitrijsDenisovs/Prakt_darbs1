@@ -19,20 +19,6 @@
     ?>
     <div class = "container">
             <?php
-                if(isset($_SESSION["error"])):
-            ?>
-                    <div class = "mt-1 alert alert-danger">
-                        <?php
-                            echo $_SESSION["error"];
-                        ?>    
-                    </div>
-            <?php
-                    unset($_SESSION["error"]);
-                endif;
-            ?>       
-  
-        <ul class="list-group">
-            <?php
                 $servername = "localhost";
                 $username = "root";
                 $password = "";
@@ -44,46 +30,49 @@
                     header("Location: index.php");
                     exit();
                 }
-                $sql = "SELECT * FROM topic";
-                $topics = $conn->query($sql);
+                $id = $_GET["id"];
+                
+                $sql = "SELECT * FROM message WHERE ThemeID = '$id'";
+                $messages = $conn->query($sql);
+                $sql = "SELECT TopicName FROM topic WHERE ID = '$id'";
+                $result = $conn->query($sql);
+                $topic = $result->fetch_assoc();
             ?>
+        <h3>
             <?php
-                while($row = $topics->fetch_assoc()):
+                echo $topic["TopicName"];
+            ?>
+        </h3>    
+            <?php
+                while($row = $messages->fetch_assoc()):
                     $email = $row["Email"];
                     $sql = "SELECT Name from client WHERE Email = '$email'";
                     $result = $conn->query($sql);
                     $record = $result->fetch_assoc();
                     $name = $record["Name"];
-                    $id = $row["ID"];
  
-                    echo '<a class = "btn" href="topic.php?id='. $id .'">';
             ?>
-                <li class = "list-group-item">
-                    <div class="d-grid">
-                        <div class="row">
-                            <div class="col-md-12 text-primary">
-                                <?php 
-                                    echo $row["TopicName"];
-                                ?>  
-                            </div>
-                            <div class="col-md-12">
-                                <?php 
-                                    echo "Izveidoja ". $name;
-                                ?>
-                            </div>
-                        </div>    
+                    <div class="d-flex">
+                        <?php 
+                            echo $name. " uzrakstīja";
+                        ?>
                     </div>
-                </li>
-                </a>
+                    <div class="container border-top border-dark">
+                        <p style = "word-wrap: break-word" class="post text-wrap">
+                            <?php 
+                                echo $row["Text"];
+                            ?> 
+                        </p> 
+                    </div>
             <?php
                 endwhile;
-            ?>
-            </ul>       
+                $conn->close();
+            ?> 
         <?php 
             if(isset($_SESSION["name"]) && isset($_SESSION["email"])):                               
         ?>  
             <div class = "form-container container border">
-                <form  action="createTopic.php" autocomplete="off" method="POST">
+                <form  action="createMessage.php" autocomplete="off" method="POST">
                     <?php
                         if(isset($_SESSION["topicError"])):
                     ?>
@@ -97,19 +86,19 @@
                         endif;
                     ?>      
                     <div class = "form-group">
-                        <h5> Izveidot jaunu tēmu</h5>
-                        <label for="topicName">Tēmas nosaukums</label>
-                        <input class = "form-control" name = "topicName" id = "topicName" type = "text"/>
+                        <h5> Izveidot jaunu ziņojumu</h5>
+                        <input type="hidden" name="topicId" id="topicId" value="<?php echo $id;?>"/>
+                        <textarea class="w-100" name="message" id="message"></textarea>
                     </div>
                     <br>
-                    <button class = "my-2 btn-primary" type = "submit">Izveidot tēmu</button>
+                    <button class = "my-2 btn-primary" type = "submit">Atsūtīt</button>
                 </form>
             </div>
         <?php
             endif;
-        ?>
+        ?>      
     </div>
     <?php
         include "blocks\\footer.php";
     ?>  
-</body>   
+</body>
