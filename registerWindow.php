@@ -49,7 +49,7 @@
                 <input class = "form-control" name = "password" id = "password" type = "password"required/>
                 <input class="mx-2 mt-2" type = "checkbox" onclick='togglePasswordVisibility("password")'/>
             </div>
-            <label for="rep-passowrd">Parole</label>
+            <label for="rep-passowrd">Atkārtota parole</label>
             <div class = "d-flex form-group">
                 <input class = "form-control" name = "rep-password" id = "rep-password" type = "password"required/>
                 <input class="mx-2 mt-2" type = "checkbox" onclick='togglePasswordVisibility("rep-password")'/>
