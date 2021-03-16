@@ -24,6 +24,9 @@
         include "blocks\header.php";
     ?>
     <div class = "container">
+        <h3>
+            Tēmas
+        </h3>
             <?php
                 if(isset($_SESSION["error"])):
             ?>
