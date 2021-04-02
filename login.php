@@ -8,7 +8,9 @@
        
         $servername = "localhost";
         $username = "root";
-        $password = "";
+        $dataFile = fopen("confidentialData\password.txt", "r");
+        $password = fread($dataFile, filesize("confidentialData\password.txt"));
+        fclose($dataFile);
         $dbname = "forumdatabase";
 
         $conn = new mysqli($servername, $username, $password, $dbname);

@@ -14,7 +14,9 @@
         }
         $servername = "localhost";
         $username = "root";
-        $password = "";
+        $dataFile = fopen("confidentialData\password.txt", "r");
+        $password = fread($dataFile, filesize("confidentialData\password.txt"));
+        fclose($dataFile);
         $dbname = "forumdatabase";
 
         $inputName = ucfirst(htmlspecialchars(stripslashes(trim($inputName))));
