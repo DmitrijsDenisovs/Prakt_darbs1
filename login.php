@@ -1,4 +1,5 @@
 <?php
+    require "functions\connectToDatabase.php";
     if(session_status() != PHP_SESSION_ACTIVE){
         session_start();
     }
@@ -6,14 +7,16 @@
         $inputEmail = $_POST["email"];
         $inputPass = $_POST["password"];
        
-        $servername = "localhost";
+        /*$servername = "localhost";
         $username = "root";
         $dataFile = fopen("confidentialData\password.txt", "r");
         $password = fread($dataFile, filesize("confidentialData\password.txt"));
         fclose($dataFile);
         $dbname = "forumdatabase";
 
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli($servername, $username, $password, $dbname);*/
+
+        $conn = connectToDatabase("loginWindow.php");
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
             $_SESSION["error"] = "Problēmas ar datu bāzes pieslēgumu";

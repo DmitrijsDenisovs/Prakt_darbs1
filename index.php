@@ -1,4 +1,5 @@
 <?php
+    require "functions\connectToDatabase.php";
     if(session_status() != PHP_SESSION_ACTIVE){
         session_start();
         if(isset($_COOKIE["name"])){
@@ -42,7 +43,7 @@
   
         <ul class="list-group">
             <?php
-                $servername = "localhost";
+                /*$servername = "localhost";
                 $username = "root";
                 $dataFile = fopen("confidentialData\password.txt", "r");
                 $password = fread($dataFile, filesize("confidentialData\password.txt"));
@@ -54,7 +55,8 @@
                     $_SESSION["error"] = "Problēmas ar datu bāzes pieslēgumu";
                     header("Location: index.php");
                     exit();
-                }
+                }*/
+                $conn = connectToDatabase();
                 $sql = "SELECT * FROM topic";
                 $topics = $conn->query($sql);
             ?>
