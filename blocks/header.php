@@ -19,12 +19,28 @@
               </div>  
             <?php
               else:
+                $dataFile = fopen("confidentialData\admin.txt", "r");
+                $adminEmail = fread($dataFile, filesize("confidentialData\admin.txt"));
+                fclose($dataFile);
+                if($_SESSION["email"] == $adminEmail):
             ?>
+              <div class="my-md-2 col-sm">
+                <a class="w-100 btn btn-secondary" href = "admin.php">Admin</a>
+              </div>  
+              <?php
+                else:
+              ?>
+                <div class="my-md-2 col-sm">
+                <a class="w-100 btn btn-secondary" href = "user.php">Mans konts</a>
+              </div>  
+              <?php
+                endif;
+              ?>
               <div class="my-md-2 col-sm">
                 <a class="w-100 btn btn-warning" href = "logout.php">Iznākt</a>
               </div>  
             <?php
-              endif
+              endif;
             ?>  
           </div> 
       </div>
