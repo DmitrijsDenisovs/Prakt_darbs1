@@ -22,7 +22,7 @@
             $deleteQuery = "DELETE FROM Topic WHERE ID = '$primaryKeyValue'";
             $conn->query($deleteQuery);
             $conn->close();
-            header("admin.php");
+            header("topicTable.php");
             break;
     }
 ?>
